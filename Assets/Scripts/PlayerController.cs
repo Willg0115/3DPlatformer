@@ -5,18 +5,23 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
-    public float gravity = -9.81f;//not using rigid body 
+    public float gravity = -20f;//gravity, not using rigid body 
+    public float fallMultiplier = 2f; // adjust gravity when falling
+    public float jumpMultiplier = 1.5f; // adjust gravity while going up
     public Transform cameraTransform;
 
     [Header("Jump Settings")]
     public Transform groundCheck;
     public LayerMask groundMask;
     public float groundDistance = 0.3f;
+    public bool doubleJump = true;
     
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
     private int jumpCount = 0;
+
+    
     
     void Start()
     {
@@ -53,7 +58,7 @@ public class PlayerController : MonoBehaviour
             jumpCount = 0; 
         }
 
-        if (Input.GetKey(KeyCode.Space) && jumpCount < 1)
+        if (Input.GetKeyDown(KeyCode.Space) && jumpCount < (doubleJump ? 2 : 1))
         {
             velocity.y = Mathf.Sqrt(jumpForce * -2f * gravity);
             jumpCount++;
@@ -62,13 +67,19 @@ public class PlayerController : MonoBehaviour
 
     void ApplyGravity()
     {
-        if (!isGrounded)
+        if (isGrounded && velocity.y < 0)
         {
-            velocity.y += gravity * Time.deltaTime;
+            velocity.y = -2f; // keep player grounded
         }
-        else if (velocity.y < 0)
+
+        // down gravity multiplier
+        if (velocity.y < 0)
         {
-            velocity.y = -2f; 
+            velocity.y += gravity * fallMultiplier * Time.deltaTime;
+        }
+        else
+        {
+            velocity.y += gravity * jumpMultiplier * Time.deltaTime;
         }
 
         controller.Move(velocity * Time.deltaTime);

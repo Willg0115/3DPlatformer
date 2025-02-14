@@ -1325,12 +1325,15 @@ MonoBehaviour:
   moveSpeed: 5
   jumpForce: 5
   gravity: -20
+  fallMultiplier: 2
+  jumpMultiplier: 1.5
   cameraTransform: {fileID: 596633480}
   groundCheck: {fileID: 554856690}
   groundMask:
     serializedVersion: 2
     m_Bits: 64
   groundDistance: 0.1
+  doubleJump: 1
 --- !u!143 &920970975
 CharacterController:
   m_ObjectHideFlags: 0
