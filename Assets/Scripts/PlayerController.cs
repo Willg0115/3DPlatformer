@@ -46,7 +46,13 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKey(KeyCode.D)) moveDirection += cameraTransform.right;
 
         moveDirection.y = 0; 
+
+        if (moveDirection != Vector3.zero)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(moveDirection), 0.15f);
+        }
         controller.Move(moveSpeed * Time.deltaTime * moveDirection.normalized);
+
     }  
 
     void HandleJump()
