@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 3277130465096748367}
   - component: {fileID: 6797760747026527775}
   - component: {fileID: 8056474569407889582}
+  - component: {fileID: 2875754861037551957}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -53,7 +54,7 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.15
+  m_Radius: 0.2
   m_Height: 0.4
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -70,6 +71,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 100
+--- !u!114 &2875754861037551957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5450477027968440340}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e59414bf3fede428fba679eac899dc4b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  coinValue: 1
 --- !u!1 &5916474577673897191
 GameObject:
   m_ObjectHideFlags: 0
