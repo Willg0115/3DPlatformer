@@ -1861,6 +1861,10 @@ GameObject:
   - component: {fileID: 920970969}
   - component: {fileID: 920970974}
   - component: {fileID: 920970975}
+  - component: {fileID: 920970979}
+  - component: {fileID: 920970978}
+  - component: {fileID: 920970977}
+  - component: {fileID: 920970976}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1972,20 +1976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a78c1fa601a84091a4fb7674ddc0e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 7
-  jumpForce: 5
-  gravity: -60
-  fallMultiplier: 1.7
-  cameraTransform: {fileID: 596633480}
-  groundCheck: {fileID: 554856690}
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 64
-  groundDistance: 0.1
-  doubleJump: 1
-  dashSpeed: 50
-  dashDuration: 0.35
-  dashCooldown: 1
 --- !u!143 &920970975
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2011,6 +2001,67 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &920970976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920970968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8095b95e427d240669d87d04b8815e7d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 7
+  cameraTransform: {fileID: 596633480}
+--- !u!114 &920970977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920970968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf944547d0d5f40fab8ff0a1545acbd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  jumpForce: 5
+  groundCheck: {fileID: 554856690}
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
+  groundDistance: 0.1
+  doubleJump: 1
+--- !u!114 &920970978
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920970968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ef2bb33d6e747ce98af6f2e7cd7759, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fallMultiplier: 1.7
+--- !u!114 &920970979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 920970968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20d834eef76b84c19a93a4f7d72bf71d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dashSpeed: 50
+  dashDuration: 0.35
+  dashCooldown: 1
 --- !u!1001 &952928697
 PrefabInstance:
   m_ObjectHideFlags: 0
