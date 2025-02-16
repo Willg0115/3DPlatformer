@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -5,9 +6,8 @@ public class PlayerController : MonoBehaviour
     [Header("Movement Settings")]
     public float moveSpeed = 5f;
     public float jumpForce = 5f;
-    public float gravity = -20f;//gravity, not using rigid body 
-    public float fallMultiplier = 2f; // adjust gravity when falling
-    public float jumpMultiplier = 1.5f; // adjust gravity while going up
+    public float gravity = -60f;//gravity, not using rigid body 
+    public float fallMultiplier = 1.7f; // adjust gravity when falling
     public Transform cameraTransform;
 
     [Header("Jump Settings")]
@@ -15,11 +15,19 @@ public class PlayerController : MonoBehaviour
     public LayerMask groundMask;
     public float groundDistance = 0.3f;
     public bool doubleJump = true;
+
+    [Header("Dash Settings")]
+    public float dashSpeed = 500f;
+    public float dashDuration = 1f;
+    public float dashCooldown = 1f;
+    private bool canDash = true;
+    private bool isDashing = false; 
     
     private CharacterController controller;
     private Vector3 velocity;
     private bool isGrounded;
     private int jumpCount = 0;
+    
 
     
     
@@ -30,11 +38,50 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        HandleMovement();
+        HandleDash();
+        // Only process movement if not dashing.
+        if (!isDashing)
+        {
+            HandleMovement();
+        }
         HandleJump();
         ApplyGravity();
     }
 
+    private void HandleDash(){
+        if (Input.GetKey(KeyCode.LeftShift) && canDash)
+        {
+            StartCoroutine(dash());
+        }
+        IEnumerator dash()//
+        {
+            canDash = false;
+            isDashing = true;
+
+            // Save the current velocity componenents so gravity/jump and movespeed is preserved.
+            float originalY = velocity.y;
+            float originalX = velocity.x;
+            float originalZ = velocity.z;
+
+            Vector3 dashDirection = cameraTransform.forward; //dash forward relative to camera/mouse not movement direction
+            dashDirection.y = 0f; 
+            dashDirection.Normalize();
+
+            //dash for dash duration
+            velocity = dashDirection * dashSpeed;
+            velocity.y = originalY;
+            yield return new WaitForSeconds(dashDuration);
+
+            isDashing = false;
+
+            // Reset speed 
+            velocity.x = originalX;
+            velocity.z = originalZ;
+
+            yield return new WaitForSeconds(dashCooldown);//cool down timer
+            canDash = true;
+        }
+    }   
 
     void HandleMovement()
     {
@@ -81,11 +128,11 @@ public class PlayerController : MonoBehaviour
         // down gravity multiplier
         if (velocity.y < 0)
         {
-            velocity.y += gravity * fallMultiplier * Time.deltaTime;
+            velocity.y += gravity * fallMultiplier * Time.deltaTime;//going down
         }
         else
-        {
-            velocity.y += gravity * jumpMultiplier * Time.deltaTime;
+        {   
+            velocity.y += gravity * Time.deltaTime;//going up
         }
 
         controller.Move(velocity * Time.deltaTime);
